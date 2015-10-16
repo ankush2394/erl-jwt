@@ -6,7 +6,7 @@
 	{applications, [
 		kernel,
 		stdlib,
-        publick_key,
+        public_key,
 		base64url,
         jsx
 	]}
