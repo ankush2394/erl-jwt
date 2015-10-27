@@ -44,7 +44,7 @@ parse_token(Token) ->
     SignIn = <<EncHeader/binary, ".", EncPayload/binary>>,
     {ok, {Header, Payload, Signature, SignIn}}.
 
--spec verify_signature(token(), public_key:public_key()) -> {ok, public_key:public_key()}.
+-spec verify_signature(token(), public_key:public_key()) -> ok | {error, bad_signature}.
 verify_signature({_, _, Signature, SignIn}, Key) ->
     case public_key:verify(SignIn, sha256, Signature, Key) of
         true ->
