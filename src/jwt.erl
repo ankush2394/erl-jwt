@@ -76,7 +76,7 @@ verify_expiration_date(Payload, Now) ->
 verify_issued_at(Payload, Now) ->
     {_, Iat} = lists:keyfind(<<"iat">>, 1, Payload),
     if
-        Iat < Now -> ok;
+        Iat =< Now -> ok;
         true -> {error, not_issued_yet}
     end.
 
@@ -84,7 +84,7 @@ verify_issued_at(Payload, Now) ->
 verify_not_before(Payload, Now) ->
     case lists:keyfind(<<"nbf">>, 1, Payload) of
         false -> ok;
-        {_, Nbf} when Nbf < Now -> ok;
+        {_, Nbf} when Nbf =< Now -> ok;
         _ -> {error, not_valid_yet}
     end.
 
