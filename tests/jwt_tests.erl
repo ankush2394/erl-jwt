@@ -30,6 +30,8 @@ SwIDAQAB">>).
 -define(BEFORE, 123456788).
 -define(AFTER, 123456790).
 
+-define(MALFORMED_TOKEN, <<"InVaLiD">>).
+
 -define(VALID_TOKEN, ?BASE_TOKEN ++ [{<<"nbf">>, ?BEFORE}, {<<"exp">>, ?AFTER}, {<<"iat">>, ?BEFORE}]).
 -define(VALID_TOKEN_DEC, <<"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtZSIsInN1YiI6InNqIiwibmJmIjoxMjM0NTY3ODgsImV4cCI6MTIzNDU2NzkwLCJpYXQiOjEyMzQ1Njc4OCwianRpIjoiMTIzNDUiLCJ0eXAiOiJteV90b2tlbiJ9.BmJ8GbYK1a_a__wofSnoK3sfo0IzL8Mvv6bJQCjHimuxc_jxHKebEAbySCPTj6chHHM20JnMM56gEAezp1Hm0rKnPkhPwuN2aMoKGxWBLt0Py9ATYy8tkFJ7jQK3Jr5zJiTVm2YNfh46XoPGdGFOf-VZwPlp2vu9MpGvV6MOu1NhU9GElY--ADUtaeg1mTN4tcJ1fsTsW0BWqdj4GBLVXU4h8oEEcOd1tFHYmx6aUQ7EIgMBOKQZltoLRZT6TdwMiNJKdgXMXbGPOKM64kYZ0AI2aqVGsPzFtcb4oYMrLtktfu6vLRPry4cy10P9VwcCvVtq1zjrz_FiemAtA6hV1A">>).
 -define(NOT_YET_TOKEN_DEC, <<"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtZSIsInN1YiI6InNqIiwibmJmIjoxMjM0NTY3OTAsImV4cCI6MTIzNDU2NzkwLCJpYXQiOjEyMzQ1Njc4OCwianRpIjoiMTIzNDUiLCJ0eXAiOiJteV90b2tlbiJ9.Oavd_XM8tUrbHBqgC6wnbJo7g3cSpdC05fzO4WI_N2pzBc7g-z5fVmws8sHHLbML9N80kghZQE8hX5SFdIjUY1Z2_QolbBvk-f1QpuOJ24-mSOYrruHoVnr3c86VYU-Rae0qWF0JhgRAl13iKoNBjf1GBR7aYpPBrFcjkEk8gZ1KA4ivaZ8l_AFGtMNsXLLTwmCjum4yk1ldXr2UfPJSQ274Nm-YSzMEE_beFtk_lVSM9-HYKWxJg4Z6vdjUTuNr4iT1XCWIitmiTzrolpVgcYzF3kvwiyuvoSS7wSL7uPH4852j-zMSQMV8-rNBmKMkkQV_RHYjWmmwx7BKBJdFEA">>).
@@ -52,7 +54,8 @@ jwt_test_() ->
             {"Invalid signature", fun invalid_token/0},
             {"Not before invalid token", fun not_yet_token/0},
             {"Expired token", fun expired_token/0},
-            {"Not issued yet token", fun not_issued_token/0}
+            {"Not issued yet token", fun not_issued_token/0},
+            {"Malformed token", fun malformed_token/0}
         ]
     }.
 
@@ -76,8 +79,8 @@ not_issued_token() ->
     {error, Reason} = jwt:decode(?NOT_ISSUED_TOKEN_DEC, ?PUBLIC_KEY),
     ?assertEqual(not_issued_yet, Reason).
 
+malformed_token() ->
+    {error, Reason} = jwt:decode(?MALFORMED_TOKEN, ?PUBLIC_KEY),
+    ?assertEqual(bad_token_format, Reason). 
+
 -endif.
-%%
-%% eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.
-%% eyJpc3MiOiJtZSIsInN1YiI6InNqIiwibmJmIjoxMjM0NTY3ODgsImV4cCI6MTIzNDU2Nzg4LCJpYXQiOjEyMzQ1Njc5MCwianRpIjoiMTIzNDUiLCJ0eXAiOiJpbnZhbGlkIn0.
-%% Dp3NIW5jghZKegKjhiy2OBwFJjMpfcEpMvLxmBO4Al6IoIYq8AJH_AYNeAeobrfzEawmBUPnTSXCkYXlZF5Me_muWC_UZkW5Ll763fihm7MT6z2T7afskZ7sRD7dgjosgHHsjSOeckHFacEhqX1tJS2xAcmW15_YnJFg1fcct9w_ZwpacCYjRc2EQKrrUQ5TV4neYq_q4-brWowh-nqmLsi4PqWCnbwg9Wxr4HpuVyqbSOwU0tDndXHenCEyuePvP1tLaf4JDNxnWOCQdNNO86ir3-PKWuEUJ-67y8C1OWZ4dn1Dh1_SNCu9bDQZsFZuSg37Wp9JODglSD6wjrkh_w

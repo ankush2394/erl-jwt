@@ -51,12 +51,17 @@ parse_public_key(BinKey) ->
 
 -spec parse_token(binary()) -> {ok, token()}.
 parse_token(Token) ->
-    Parts = binary:split(Token, <<".">>, [global]),
-    DecodedParts = [base64url:decode(Part) || Part <- Parts],
-    [EncHeader, EncPayload, _EncSignature] = Parts,
-    [Header, Payload, Signature] = DecodedParts,
-    SignIn = <<EncHeader/binary, ".", EncPayload/binary>>,
-    {ok, {Header, Payload, Signature, SignIn}}.
+    {ok, Result} = try
+        Parts = binary:split(Token, <<".">>, [global]),
+        DecodedParts = [base64url:decode(Part) || Part <- Parts],
+        [EncHeader, EncPayload, _EncSignature] = Parts,
+        [Header, Payload, Signature] = DecodedParts,
+        SignIn = <<EncHeader/binary, ".", EncPayload/binary>>,
+        {ok, {Header, Payload, Signature, SignIn}}
+    catch _:_ ->
+        {error, bad_token_format}
+    end,
+    {ok, Result}.
 
 -spec verify_signature(token(), public_key:public_key()) -> ok | {error, bad_signature}.
 verify_signature({_, _, Signature, SignIn}, Key) ->
