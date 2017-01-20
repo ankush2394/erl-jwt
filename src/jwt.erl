@@ -1,5 +1,8 @@
 -module(jwt).
--export([decode/2]).
+-export([
+    decode/2,
+    decode_no_verify/1
+]).
 
 -define(BEGIN_KEY, "-----BEGIN PUBLIC KEY-----\n").
 -define(END_KEY, "\n-----END PUBLIC KEY-----").
@@ -20,6 +23,17 @@ decode(Token, RSAKey) when is_binary(Token) and is_binary(RSAKey) ->
         ok = verify_signature(TokenParts, Key),
         {ok, Decoded} = decode_token(TokenParts),
         ok = verify_token(Decoded),
+        {ok, Decoded}
+    catch
+        error:{badmatch, {error, Reason}} ->
+            {error, Reason}
+    end.
+
+-spec decode_no_verify(binary()) -> {ok, jsx:json_term()} | {error, any()}.
+decode_no_verify(Token) when is_binary(Token) ->
+    try
+        {ok, TokenParts} = parse_token(Token),
+        {ok, Decoded} = decode_token(TokenParts),
         {ok, Decoded}
     catch
         error:{badmatch, {error, Reason}} ->
