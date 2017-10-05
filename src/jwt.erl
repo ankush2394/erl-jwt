@@ -7,8 +7,6 @@
 -define(BEGIN_KEY, "-----BEGIN PUBLIC KEY-----\n").
 -define(END_KEY, "\n-----END PUBLIC KEY-----").
 
--include_lib("logger/include/logger.hrl").
-
 -type token() :: {H :: binary(), P :: binary(), S :: binary(), SignIn :: binary()}.
 
 
@@ -78,7 +76,7 @@ decode_token({_, Payload, _, _}) ->
 
 -spec verify_token(jsx:json_term()) -> ok.
 verify_token(Payload) ->
-    Now = utils:get_unix_timestamp(),
+    Now = os:system_time(seconds),
     ok = verify_issued_at(Payload, Now),
     ok = verify_expiration_date(Payload, Now),
     ok = verify_not_before(Payload, Now).
