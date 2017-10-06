@@ -47,7 +47,7 @@ SwIDAQAB">>).
 ?TEST_FUN().
 jwt_test_() ->
     {foreach,
-        fun() -> ?MECK(os, [{system_time, fun(seconds) -> ?NOW end}]) end,
+        fun() -> ?MECK(jwt, [{system_time, ?NOW}]) end,
         fun(_) -> ok end,
         [
             {"Valid token", fun valid_token/0},
