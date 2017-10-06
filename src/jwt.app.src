@@ -1,0 +1,13 @@
+{application, jwt, [
+    {description, "JSON Web Token"},
+    {vsn, "0.1.0"},
+    {modules, [jwt]},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib,
+        public_key,
+        base64url,
+        jsx
+    ]}
+]}.
