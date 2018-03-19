@@ -9,5 +9,6 @@
         public_key,
         base64url,
         jsx
-    ]}
+    ]},
+    {licenses, ["MIT"]}
 ]}.
