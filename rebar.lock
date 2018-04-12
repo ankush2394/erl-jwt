@@ -1,8 +1,8 @@
-[{<<"base64url">>,
-  {git,"https://github.com/dvv/base64url.git",
-       {ref,"f2c64ed8b9bebc536fad37ad97243452b674b837"}},
-  0},
- {<<"jsx">>,
-  {git,"https://github.com/talentdeficit/jsx.git",
-       {ref,"8845c9acbe5450d0f51b5f3f33ede884e6d51fca"}},
-  0}].
+{"1.1.0",
+[{<<"base64url">>,{pkg,<<"base64url">>,<<"0.0.1">>},0},
+ {<<"jsx">>,{pkg,<<"jsx">>,<<"2.0.4">>},0}]}.
+[
+{pkg_hash,[
+ {<<"base64url">>, <<"99D293209C685DF13444D7CE6D328E79112A3CDD527AD9AC2E640FF8A3F4B5E8">>},
+ {<<"jsx">>, <<"1B5D21C24486C0BFD467426081839143AD826F173BCD7128594F42B13B0FF6E5">>}]}
+].
