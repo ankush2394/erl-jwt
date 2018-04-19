@@ -1,6 +1,6 @@
 {application,jwt,
              [{description,"JSON Web Token"},
-              {vsn,"0.1.1"},
+              {vsn,"0.1.2"},
               {licenses,["MIT"]},
               {links,[{"GitHub","https://github.com/relayr/pdm-erl-jwt"}]},
               {modules,[jwt]},
