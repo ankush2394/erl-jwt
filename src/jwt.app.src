@@ -5,4 +5,4 @@
               {links,[{"GitHub","https://github.com/relayr/erl-jwt"}]},
               {modules,[jwt]},
               {registered,[]},
-              {applications,[kernel,stdlib,public_key,base64url,jsx]}]}.
+              {applications,[kernel,stdlib,public_key,base64url,jsx,time_utils]}]}.

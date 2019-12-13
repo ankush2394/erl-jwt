@@ -1,9 +1,7 @@
 -module(jwt).
 -export([
     decode/2,
-    decode_no_verify/1,
-
-    system_time/0
+    decode_no_verify/1
 ]).
 
 -define(BEGIN_KEY, "-----BEGIN PUBLIC KEY-----\n").
@@ -78,7 +76,7 @@ decode_token({_, Payload, _, _}) ->
 
 -spec verify_token(jsx:json_term()) -> ok.
 verify_token(Payload) ->
-    Now = jwt:system_time(),
+    Now = time_utils:get_unix_timestamp(),
     ok = verify_issued_at(Payload, Now),
     ok = verify_expiration_date(Payload, Now),
     ok = verify_not_before(Payload, Now).
@@ -106,7 +104,3 @@ verify_not_before(Payload, Now) ->
         {_, Nbf} when Nbf =< Now -> ok;
         _ -> {error, not_valid_yet}
     end.
-
--spec system_time() -> non_neg_integer().
-system_time() ->
-    os:system_time(seconds).
