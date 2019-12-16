@@ -1,6 +1,6 @@
 # JSON Web Token (jwt)
 
-[![Hex.pm](https://img.shields.io/badge/hex-0.1.8-aa66cc.svg)](https://hex.pdmbuilds.proximetry.com/packages/jwt/0.1.8) [![Coverage Status](https://coveralls.io/repos/github/relayr/erl-jwt/badge.svg?branch=master)](https://coveralls.io/github/relayr/erl-jwt?branch=master)
+[![Build Status](https://travis-ci.org/relayr/erl-jwt.svg?branch=master)](https://travis-ci.org/relayr/erl-jwt) [![Coverage Status](https://coveralls.io/repos/github/relayr/erl-jwt/badge.svg?branch=master)](https://coveralls.io/github/relayr/erl-jwt?branch=master)
 
 Erlang functions for decoding and validation of JSON Web Tokens (JWT). JWT standard is defined in [RFC 7519](https://tools.ietf.org/html/rfc7519).
 
