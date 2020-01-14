@@ -42,9 +42,8 @@ SwIDAQAB">>).
 
 -ifdef(TEST).
 
--include_lib("testutils/include/testing.hrl").
+-include_lib("test_utils/include/testing.hrl").
 
-?TEST_FUN().
 jwt_test_() ->
     {foreach,
         fun() -> ?MECK(time_utils, [{get_unix_timestamp, ?NOW}]) end,
